@@ -21,8 +21,6 @@ export const signupHandler = async (
         password: req.body.password,
     });
 
-    await newUser.hashPassword();
-
     const savedUser = await userRepository.save(newUser);
 
     const token = jwt.sign(
@@ -44,13 +42,16 @@ export const loginHandler = async (
     req: Request<unknown, unknown, LoginSchemaType>,
     res: Response
 ) => {
-    console.log(req.body)
 
     const userRepository = AppDataSource.getRepository(User);
     const userFound = await userRepository.findOneBy({email: req.body.email});
-    if(!userFound) throw new NotFound("User not found");
 
+    if(!userFound) throw new NotFound("User not found");
+    
     const validPassword = await userFound.comparePassword(req.body.password);
+
+    console.log("Password Valid:", validPassword);
+    
     if(!validPassword) throw new NotFound("Invalid Password");
 
     const token = jwt.sign(
