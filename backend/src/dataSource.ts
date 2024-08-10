@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: "Lizz22-17Restrepo",
     database: "centralDB",
     entities: [User, Product],
-    synchronize: true,
+    synchronize: false,
     logging: false,
 })
 

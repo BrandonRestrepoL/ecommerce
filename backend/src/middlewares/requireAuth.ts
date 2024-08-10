@@ -18,7 +18,6 @@ export const requireAuth = async (
     if (err) return res.status(403).json([{ message: "Forbidden" }]);
 
     req.user = user
-
     next();
   });
 };

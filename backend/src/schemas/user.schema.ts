@@ -1,6 +1,8 @@
 import {z} from 'zod';
 
+// Definición del esquema de validación para el registro de usuario usando Zod
 export const signupSchema = z.object({
+      // Definición del objeto principal, que contiene los datos del cuerpo de la solicitud
     body: z.object({
         fullName: z
             .string({
@@ -26,7 +28,9 @@ export const signupSchema = z.object({
     }),
 });
 
+// Definición del esquema de validación para el inicio de sesión del usuario usando Zod
 export const loginSchema = z.object({
+  // Definición del objeto principal, que contiene los datos del cuerpo de la solicitud
     body: z.object({
       email: z
         .string({

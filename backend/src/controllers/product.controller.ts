@@ -10,9 +10,9 @@ export const productHandler = async (
     res: Response
 ) => {
     const productRepository = AppDataSource.getRepository(Product);
-    const productFound = await productRepository.findOneBy({id: req.body.id});
+    //const productFound = await productRepository.findOneBy({id: req.body.id});
 
-    if (productFound) return res.status(403).json([{message: "Id product found"}]);
+    //if (productFound) return res.status(403).json([{message: "Id product found"}]);
 
     const newProduct = productRepository.create({
         name: req.body.name,
