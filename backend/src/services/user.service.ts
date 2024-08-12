@@ -1,7 +1,8 @@
 import { User } from "../entities/User";
 import { userRepository } from "../repositories/userRepository";
 import {NotFound, Conflict} from "http-errors";
-import {omit} from "lodash";
+import { UserDto } from "../controllers/user.dto";
+
 
 class UserService {
     async createUser(userData: Partial<User>): Promise<User> {
@@ -29,16 +30,16 @@ class UserService {
         return user;
     };
 
-    async getUserById(id: number): Promise<User | null> {
-        const user = userRepository.getUserById(id);
+    async getUserById(id: number): Promise<UserDto | null> {
+        const user = await userRepository.getUserById(id);
         if (!user) {
             throw new Conflict("User not found");
         };
 
-        return user;
-
+        const userDto = new UserDto(user);
+        return userDto;
     };
-    
+
 }
 
 export const userService = new UserService();

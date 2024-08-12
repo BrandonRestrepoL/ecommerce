@@ -32,6 +32,7 @@ export const loginHandler = async (
     res: Response
 ) => { 
     const {email, password} = req.body;
+    console.log(email, password)
     const user = await userService.validateUserPassword(email, password)
     const token = jwt.sign(
         {
@@ -49,9 +50,7 @@ export const loginHandler = async (
 };
 
 export const getUserHandler = async (req: Request, res: Response) => {
-    const {fullName, password} = req.body;
     const userId = req.user._id;
-    console.log(userId);
-    const user = await userService.getUserById(userId);
-    
+    const user = await userService.getUserById(userId);   
+    res.json(user); 
 };
