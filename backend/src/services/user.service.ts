@@ -40,6 +40,15 @@ class UserService {
         return userDto;
     };
 
+    async updateUser(id: number, updateData: Partial<User>): Promise <UserDto | null> {
+        await userRepository.updateUser(id, updateData);
+        return await this.getUserById(id);
+    }
+
+    async deleteUser(id: number): Promise<void>{
+        await userRepository.deleteUser(id);
+    }
+
 }
 
 export const userService = new UserService();

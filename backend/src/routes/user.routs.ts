@@ -3,6 +3,8 @@ import {
   loginHandler,
   getUserHandler,
   signupHandler,
+  updateUserHandler,
+  deleteUserHandler,
 } from "../controllers/user.controller";
 import { requireAuth } from "../middlewares/requireAuth";
 import { validateSchema } from "../middlewares/validateSchema";
@@ -19,5 +21,9 @@ router.post("/login", validateSchema(loginSchema), loginHandler);
 router.post("/product", validateSchema(productSchema), productHandler)
 
 router.get("/getProfile", requireAuth, getUserHandler);
+
+router.put("/updateUser", requireAuth, updateUserHandler);
+
+router.delete("/deleteUser", requireAuth, deleteUserHandler);
 
 export default router;

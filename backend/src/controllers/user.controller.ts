@@ -54,3 +54,18 @@ export const getUserHandler = async (req: Request, res: Response) => {
     const user = await userService.getUserById(userId);   
     res.json(user); 
 };
+
+export const updateUserHandler = async (req: Request, res: Response) => {
+    const userId = req.user._id;
+    const updateData = req.body;
+
+    const updatedUser = await userService.updateUser(userId, updateData)
+    res.json(updatedUser);
+}
+
+export const deleteUserHandler = async (req: Request, res: Response) =>{
+    const userId = req.user._id;
+    const deleteUSer = await userService.deleteUser(userId);
+
+    return res.status(204).send()
+}

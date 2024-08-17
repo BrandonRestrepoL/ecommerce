@@ -1,7 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../dataSource";
 import { User } from "../entities/User";
-import { number } from "zod";
 
 class UserRepository {
     private repository: Repository<User>
@@ -13,7 +12,6 @@ class UserRepository {
     async createUser(userData: Partial<User>): Promise<User> {
         try{
             const user = this.repository.create(userData);
-            console.log(user)
             return await this.repository.save(user);
         } catch (error) {
             console.error("Error creando el usuario", error);
@@ -29,10 +27,15 @@ class UserRepository {
         return await this.repository.findOneBy({id});
     };
 
-    async updateUser (id: number, updateData: Partial<User>): Promise<User | null>{
+    async updateUser (id: number, updateData: Partial<User>): Promise<void>{
         await this.repository.update(id, updateData);
-        return this.getUserById(id);
     }
+
+    async deleteUser (id: number): Promise<void>{
+        await this.repository.delete(id);
+    }
+
+    
 }
 
 export const userRepository = new UserRepository();
