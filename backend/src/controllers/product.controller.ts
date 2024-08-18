@@ -4,36 +4,21 @@ import { AppDataSource } from "../dataSource";
 import { JWT_SECRET } from "../config";
 import { Product } from "../entities/Product";
 import jwt from "jsonwebtoken";
+import { productService } from "../services/productService";
 
-export const productHandler = async (
-    req: Request<unknown, unknown, ProductSchemaType & {id: number}>,
+export const createProductHandler = async (
+    req: Request<unknown, unknown, ProductSchemaType>,
     res: Response
-) => {
-    const productRepository = AppDataSource.getRepository(Product);
-    //const productFound = await productRepository.findOneBy({id: req.body.id});
+) => { 
+    const {name, price, description, stock} = req.body;
 
-    //if (productFound) return res.status(403).json([{message: "Id product found"}]);
+    const product = await productService.createProduct({name, price, description, stock})
 
-    const newProduct = productRepository.create({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        stock: req.body.stock
-    });
+    return res.json(product);
+};
 
-    const savedProduct = await productRepository.save(newProduct);
-
-    const token = jwt.sign(
-        {
-            _id: savedProduct.id,
-        },
-        JWT_SECRET,
-        {
-            expiresIn: 60 * 60 * 24,
-        }
-    );
-
-    return res.json({
-        token
-    });
+export const getProductHandler = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id, 10);
+    const product =  await productService.getProductById(id);
+    return res.json(product);
 }

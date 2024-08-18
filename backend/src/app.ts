@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 import authRoutes from "./routes/user.routs";
+import productRoutes from "./routes/product.routs"
 
 import { corsOption } from './config'; 
 
@@ -13,6 +14,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/product", productRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
