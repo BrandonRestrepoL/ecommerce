@@ -20,15 +20,11 @@ class ProductRepository{
     };
 
     async updateProduct (id: number, updateData: Partial<Product>): Promise<void> {
-        if(Object.keys(updateData).length === 0){
-            throw new Error("No update provided")
-        }
-        console.log("Accesing the product repository...");
-        console.log("Checking id: ", id, typeof id);
-        console.log("id correct. Checking updateData: ", updateData, typeof updateData)
-        const product = await this.repository.update(id, updateData)
-        console.log("Executing the product repository...")
-        console.log("Product from repository: ", product)
+        await this.repository.update(id, updateData)
+    }
+
+    async deleteProduct (id: number): Promise<void> {
+        await this.repository.delete(id);
     }
 }
 

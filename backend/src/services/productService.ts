@@ -18,16 +18,14 @@ class ProductService {
 
     
     async updateProduct(id: number, updateData: Partial<Product>): Promise <Product | null> {
-        console.log("Accesing service product... ")
-        const product = await productRepository.updateProduct(id, updateData)
-        console.log("Product from service: ", product)
+        await productRepository.updateProduct(id, updateData)
         return await this.getProductById(id);
     }
-/*
-    async deleteUser(id: number): Promise<void>{
-        await userRepository.deleteUser(id);
+
+    async deleteProduct(id: number): Promise<void>{
+        await productRepository.deleteProduct(id);
     }
-*/
+
 }
 
 export const productService = new ProductService();

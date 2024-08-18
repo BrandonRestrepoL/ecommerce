@@ -25,11 +25,14 @@ export const getProductHandler = async (req: Request, res: Response) => {
 };
 
 export const updateProductHandler = async (req: Request, res: Response) => {
-    console.log("reques body: ", req.body)
-    console.log("Updating product...")
-    const {id, ...updateData} = req.body
-    console.log("Data for the update", id, updateData)
-    const product = await productService.updateProduct(id, updateData)
-    console.log(product)
-    res.json(product)
+    const {id, ...updateData} = req.body;
+    const product = await productService.updateProduct(id, updateData);
+    res.json(product);
+}
+
+export const deleteProductHandler = async (req: Request, res: Response) => {
+    const {id} = req.body;
+    await productService.deleteProduct(id);
+
+    return res.status(204).send();
 }

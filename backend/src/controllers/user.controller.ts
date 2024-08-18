@@ -65,7 +65,7 @@ export const updateUserHandler = async (req: Request, res: Response) => {
 
 export const deleteUserHandler = async (req: Request, res: Response) =>{
     const userId = req.user._id;
-    const deleteUSer = await userService.deleteUser(userId);
+    await userService.deleteUser(userId);
 
     return res.status(204).send()
 }
