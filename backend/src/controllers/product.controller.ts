@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { ProductSchemaType } from "../schemas/product.schema";
-import { AppDataSource } from "../dataSource";
+import { AppDataSource } from "../dataSource"; 
 import { JWT_SECRET } from "../config";
 import { Product } from "../entities/Product";
 import jwt from "jsonwebtoken";
 import { productService } from "../services/productService";
+import { userService } from "../services/user.service";
 
 export const createProductHandler = async (
     req: Request<unknown, unknown, ProductSchemaType>,
@@ -21,4 +22,14 @@ export const getProductHandler = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const product =  await productService.getProductById(id);
     return res.json(product);
+};
+
+export const updateProductHandler = async (req: Request, res: Response) => {
+    console.log("reques body: ", req.body)
+    console.log("Updating product...")
+    const {id, ...updateData} = req.body
+    console.log("Data for the update", id, updateData)
+    const product = await productService.updateProduct(id, updateData)
+    console.log(product)
+    res.json(product)
 }
